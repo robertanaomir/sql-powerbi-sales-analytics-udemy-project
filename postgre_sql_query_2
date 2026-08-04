@@ -1,0 +1,14 @@
+-- Query 2 - país, estado, vendas (5 estados que mais venderam)
+
+select
+		
+		'Brasil' as "pais",
+		cus.state as estado,
+		count (fun.paid_date) as vendas,
+		date_trunc ('month',fun.paid_date)::date as mes
+			
+from sales.customers as cus
+left join sales.funnel as fun
+		on cus.customer_id = fun.customer_id 
+group by cus.state, mes
+order by vendas desc
